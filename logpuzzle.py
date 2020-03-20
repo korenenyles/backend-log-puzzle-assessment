@@ -61,7 +61,18 @@ def download_images(img_urls, dest_dir):
     Creates the directory if necessary.
     """
     # +++your code here+++
-    pass
+    if not os.path.exists(dest_dir):
+        os.makedirs(dest_dir)
+        print('dir made')
+    index_html = '<html><body>'
+    for index, url in enumerate(img_urls):
+        image_name = 'img' + str(index)
+        print('Retrieving {}'.format(url))
+        urllib.urlretrieve(url, dest_dir + '/' + image_name)
+        index_html += '<img src = {}></img>'.format(image_name)
+    index_html += '</body></html>'
+    with open(dest_dir + '/index.html', 'w') as write_index:
+        write_index.write(index_html)
 
 
 def create_parser():
@@ -87,8 +98,8 @@ def main(args):
     #img_urls = read_urls(parsed_args.logfile)
 
     #if parsed_args.todir:
-        #download_images(img_urls, parsed_args.todir)
-        #download_images(img_urls, 'testdir')
+    #   download_images(img_urls, parsed_args.todir)
+    download_images(img_urls, 'testdir')
     #else:
     print('\n'.join(img_urls))
 
