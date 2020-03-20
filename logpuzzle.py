@@ -25,6 +25,8 @@ import sys
 import urllib
 import argparse
 
+__author__ = "Koren Nyles, Sean Bailey, Chris Wilson, Kano Marvel, Chelsea White"
+
 
 def read_urls(filename):
     """Returns a list of the puzzle urls from the given log file,
@@ -42,10 +44,9 @@ def read_urls(filename):
 
     url_list = create_urls(puzzle_urls)
     url_list = list(set(url_list))
-    sorted_urls = sorted(url_list, key = return_last_word)
+    sorted_urls = sorted(url_list, key=return_last_word)
     print(sorted_urls)
     return sorted_urls
-
 
 
 def create_urls(urls):
@@ -53,9 +54,9 @@ def create_urls(urls):
     url_returns = [front + url for url in urls]
     return url_returns
 
+
 def return_last_word(url):
     return re.findall(r'-(....).jpg', url)
-    
 
 
 create_urls('animal_code.google.com')
@@ -102,12 +103,9 @@ def main(args):
         sys.exit(1)
 
     parsed_args = parser.parse_args(args)
-
-    
     img_urls = read_urls(parsed_args.logfile)
-
     if parsed_args.todir:
-       download_images(img_urls, parsed_args.todir)
+        download_images(img_urls, parsed_args.todir)
 
     else:
         print('\n'.join(img_urls))
